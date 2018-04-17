@@ -9,6 +9,8 @@ package modele;
  */
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -77,8 +79,8 @@ public class Connexion {
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
-    /*public Connexion(String usernameECE, String passwordECE, String loginDatabase, String passwordDatabase) throws SQLException, ClassNotFoundException {
-        // chargement driver "com.mysql.jdbc.Driver"
+    public Connexion(String usernameECE, String passwordECE, String loginDatabase, String passwordDatabase) throws SQLException, ClassNotFoundException {
+       /* // chargement driver "com.mysql.jdbc.Driver"
         Class.forName("com.mysql.jdbc.Driver");
 
         // Connexion via le tunnel SSH avec le username et le password ECE
@@ -96,9 +98,57 @@ public class Connexion {
             // création d'un ordre SQL (statement)
             stmt = conn.createStatement();
 
-        }
-    }*/
+        }*/
+    }
+    
+    
+    public void searchAffiliesMutuelle(String mutuelle)
+    {
+        try {
+            Statement state = conn.createStatement();
+            ResultSet result = state.executeQuery("SELECT * FROM malade WHERE mutuelle='"+mutuelle+"'");
+            ResultSetMetaData resultMeta = result.getMetaData();
+            for(int i = 1; i <= resultMeta.getColumnCount(); i++)
+        System.out.print("\t" + resultMeta.getColumnName(i).toUpperCase() + "\t *");
+         
+      System.out.println("\n**********************************");
+         
+      while(result.next()){         
+        for(int i = 1; i <= resultMeta.getColumnCount(); i++)
+          System.out.print("\t" + result.getObject(i).toString() + "\t |");
+            
+        System.out.println("\n---------------------------------");
 
+      }
+        } catch (SQLException ex) {
+            Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void searchDocteurSpecialise(String specialisation)
+    {
+        try {
+            Statement state = conn.createStatement();
+            ResultSet result = state.executeQuery("SELECT * FROM employe AS e, docteur AS d WHERE e.numero = d.numero AND d.specialite='"+specialisation+"'");
+            ResultSetMetaData resultMeta = result.getMetaData();
+            for(int i = 1; i <= resultMeta.getColumnCount(); i++)
+        System.out.print("\t" + resultMeta.getColumnName(i).toUpperCase() + "\t *");
+         
+      System.out.println("\n**********************************");
+         
+      while(result.next()){         
+        for(int i = 1; i <= resultMeta.getColumnCount(); i++)
+          System.out.print("\t" + result.getObject(i).toString() + "\t |");
+            
+        System.out.println("\n---------------------------------");
+
+      }
+        } catch (SQLException ex) {
+            Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
     /**
      * Méthode qui ajoute la table en parametre dans son ArrayList
      *
