@@ -27,14 +27,14 @@ public class Control{
     {
         
         
-        // Demande de connection à la base de donnée
+        /* Demande de connection à la base de donnée
         try {
             Connexion conn = new Connexion(a, b, c);
             System.out.println("Connected");
             conn.searchDocteurSpecialise("Cardiologue");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         Homepage a = new Homepage();
 
     }

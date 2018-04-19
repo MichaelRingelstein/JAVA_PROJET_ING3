@@ -6,6 +6,7 @@
 package vue;
 
 import controleur.Control;
+import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -20,7 +21,7 @@ import modele.Connexion;
 public class MainPage extends JFrame {
        
         
-       public Connexion con;
+       public Connexion conn;
 
    
 
@@ -30,11 +31,10 @@ public class MainPage extends JFrame {
      * @param user_name
      * @param pass_word
      */
-    public MainPage(String db_name, String user_name, String pass_word) 
+    public MainPage(String db_name, String user_name, String pass_word) throws SQLException 
     {
-        Connexion conn;
            try {
-               conn = new Connexion(db_name, user_name, pass_word);
+               this.conn = new Connexion(db_name, user_name, pass_word);
                System.out.println("Connected");
                ArrayList<String> l = conn.remplirChampsRequete("SELECT * FROM employe AS e, docteur AS d WHERE e.numero = d.numero AND d.specialite = \"Cardiologue\"" );
                for(int i = 0; i < l.size(); i++)
@@ -48,6 +48,10 @@ public class MainPage extends JFrame {
            } catch (ClassNotFoundException ex) {
                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
            }
+          this.setSize(400,400);
+           this.setLayout(new BorderLayout());
+          this.getContentPane().add(new Reporting(conn));
+          this.setVisible(true);
     }
     
 }
