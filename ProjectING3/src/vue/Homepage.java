@@ -8,6 +8,9 @@ package vue;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -73,7 +76,11 @@ public class Homepage extends JFrame {
             db = db_name.getText();
             use = user_name.getText();
             pw = pass_word.getText();
-            new MainPage(db, use, pw);
+            try {
+                new MainPage(db, use, pw);
+            } catch (SQLException ex) {
+                Logger.getLogger(Homepage.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }
     }
