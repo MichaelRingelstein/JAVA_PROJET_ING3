@@ -103,8 +103,11 @@ public class SearchPanel extends JPanel{
             }
             
             QueryCtrl qc = new QueryCtrl(conex,table, field_query);
-           result.setText(qc.result()); 
-           System.out.println(qc.result());
+           //result.setText(qc.result()); 
+           for(int i = 0; i < qc.result().size(); i++)
+           {
+                System.out.println(qc.result().get(i));
+           }
         }
         
     }

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modele.Classes.Docteur;
 import modele.Connexion;
 
 /**
@@ -19,6 +20,7 @@ public class QueryCtrl {
     
     
     ArrayList<String> res;
+    ArrayList<Object> ob;
     
     /**
      * Constructeur de requête en fonction des paramètres
@@ -51,13 +53,14 @@ public class QueryCtrl {
         try {
             res = new ArrayList<>();
             res = connex.remplirChampsRequete("SELECT "+req_field+ " FROM "+ table);
+            this.createObject(table);
         } catch (SQLException ex) {
             Logger.getLogger(QueryCtrl.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
     }
     
-    public String result()
+    public ArrayList<Object> result()
     {
         String ret = "";
         for(int i = 0; i < res.size(); i++)
@@ -65,7 +68,22 @@ public class QueryCtrl {
             ret += "<html>" + res.get(i) + "<br>";
         }
         ret += "<html>";
-        return ret;
+        return ob;
     }
+    
+    private void createObject(String table)
+    {
+        switch(table)
+        {
+            case "docteur":
+                ob = new ArrayList<>();
+                for(int i = 0; i < res.size(); i++)
+                {
+                    Docteur doc = new Docteur();
+                    ob.add(res.get(i));   
+                }
+        }
+    }
+    
     
 }
