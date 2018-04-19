@@ -201,14 +201,14 @@ public class Connexion {
         String champs = "";
         // Ajouter tous les champs du resultat dans l'ArrayList
         for (int i = 0; i < nbColonne; i++) {
-            champs = champs + " " + rsetMeta.getColumnLabel(i + 1);
+            liste.add(rsetMeta.getColumnLabel(i + 1));
         }
 
         // ajouter un "\n" à la ligne des champs
         champs = champs + "\n";
 
         // ajouter les champs de la ligne dans l'ArrayList
-        liste.add(champs);
+        //liste.add(champs);
 
         // Retourner l'ArrayList
         return liste;

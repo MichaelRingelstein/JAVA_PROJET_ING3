@@ -18,12 +18,18 @@ import javax.swing.table.TableModel;
 import modele.*;
 import org.jfree.chart.*;
 import org.jfree.data.general.DefaultPieDataset;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JPanel;
+import modele.Connexion;
+import vue.MainPage;
 
 /**
  *
  * @author micha
  */
 public class Reporting extends JPanel{
+
     
     CardLayout c = new CardLayout();
     JPanel content;
