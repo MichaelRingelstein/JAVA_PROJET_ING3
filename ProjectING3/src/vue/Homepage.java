@@ -65,6 +65,12 @@ public class Homepage extends JFrame {
         
     }
     
+    
+    private void closeHomePage()
+    {
+        this.setVisible(false);
+    }
+    
     class Login implements ActionListener{
 
         @Override
@@ -74,6 +80,8 @@ public class Homepage extends JFrame {
             use = user_name.getText();
             pw = pass_word.getText();
             new MainPage(db, use, pw);
+            closeHomePage();
+            
             
         }
     }
