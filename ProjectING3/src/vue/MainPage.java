@@ -27,7 +27,6 @@ public class MainPage extends JFrame {
        public Connexion conn;
        private JTabbedPane menu;
        private JTabbedPane onglet_search;
-       
 
    
 
@@ -37,7 +36,7 @@ public class MainPage extends JFrame {
      * @param user_name
      * @param pass_word
      */
-    public MainPage(String db_name, String user_name, String pass_word) 
+    public MainPage(String db_name, String user_name, String pass_word) throws SQLException 
     {
         
         //instanciation de la fenêtre

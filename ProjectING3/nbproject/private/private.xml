@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+
             <file>file:/C:/Users/adrie/Documents/GitHub/JAVA_PROJET_ING3/ProjectING3/src/controleur/QueryCtrl.java</file>
             <file>file:/C:/Users/adrie/Documents/GitHub/JAVA_PROJET_ING3/ProjectING3/src/vue/Homepage.java</file>
             <file>file:/C:/Users/adrie/Documents/GitHub/JAVA_PROJET_ING3/ProjectING3/src/modele/Classes/Docteur.java</file>
@@ -12,6 +13,7 @@
             <file>file:/C:/Users/adrie/Documents/GitHub/JAVA_PROJET_ING3/ProjectING3/src/modele/Classes/Employe.java</file>
             <file>file:/C:/Users/adrie/Documents/GitHub/JAVA_PROJET_ING3/ProjectING3/src/vue/SearchPanel.java</file>
             <file>file:/C:/Users/adrie/Documents/GitHub/JAVA_PROJET_ING3/ProjectING3/src/modele/Connexion.java</file>
+
         </group>
     </open-files>
 </project-private>
