@@ -26,6 +26,15 @@ public class Employe {
     }
     
     
+    public Employe()
+    {
+         this.id = 0;
+        this.nom = null;
+        this.prenom = null;
+        this.phone_number = 0;
+        this.adresse = null; 
+    }
+    
     
     public int getId()
     {

@@ -100,7 +100,7 @@ public class Connexion {
 
         }*/
     }
-    
+     
     
     public void searchAffiliesMutuelle(String mutuelle)
     {
@@ -253,6 +253,46 @@ public class Connexion {
 
         // Retourner l'ArrayList
         return liste;
+    }
+    
+     public ArrayList<String> requete_parametre(String sql, ArrayList<String> param) throws SQLException
+    {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            for(int i = 0; i < param.size(); i++)
+            {
+                pstmt.setObject(i, param.get(i));
+            }
+            rset = pstmt.executeQuery();
+
+        // récupération du résultat de l'ordre
+        rsetMeta = rset.getMetaData();
+
+        // calcul du nombre de colonnes du resultat
+        int nbColonne = rsetMeta.getColumnCount();
+
+        // creation d'une ArrayList de String
+        ArrayList<String> liste;
+        liste = new ArrayList<String>();
+
+        // tant qu'il reste une ligne 
+        while (rset.next()) {
+            String champs;
+            champs = rset.getString(1); // ajouter premier champ
+
+            // Concatener les champs de la ligne separes par ,
+            for (int i = 1; i < nbColonne; i++) {
+                champs = champs + "," + rset.getString(i + 1);
+            }
+
+            // ajouter un "\n" à la ligne des champs
+            champs = champs + "\n";
+
+            // ajouter les champs de la ligne dans l'ArrayList
+            liste.add(champs);
+        }
+
+        // Retourner l'ArrayList 
+         return liste;
     }
 
     /**

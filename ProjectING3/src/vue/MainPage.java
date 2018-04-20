@@ -25,7 +25,6 @@ public class MainPage extends JFrame {
        
         
        public Connexion conn;
-       private Reporting report;
        private JTabbedPane menu;
        private JTabbedPane onglet_search;
        

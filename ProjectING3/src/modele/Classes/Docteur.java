@@ -18,6 +18,16 @@ public class Docteur extends Employe{
         this.specialite = specialite;
     }
     
+    /**
+     *
+     */
+    public Docteur()
+    {
+        super();
+        this.specialite = null;
+        
+    }
+    
     public String getSpecialite()
     {
         return this.specialite;
