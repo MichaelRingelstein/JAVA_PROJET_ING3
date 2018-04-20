@@ -208,7 +208,7 @@ public class Connexion {
         champs = champs + "\n";
 
         // ajouter les champs de la ligne dans l'ArrayList
-        //liste.add(champs);
+        liste.add(champs);
 
         // Retourner l'ArrayList
         return liste;

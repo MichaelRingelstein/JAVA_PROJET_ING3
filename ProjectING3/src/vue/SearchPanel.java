@@ -9,6 +9,7 @@ import controleur.QueryCtrl;
 import static java.awt.AWTEventMulticaster.add;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -24,6 +25,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import modele.Classes.Docteur;
+import modele.Classes.PairString;
 import modele.Connexion;
 
 /**
@@ -33,6 +37,7 @@ import modele.Connexion;
 public class SearchPanel extends JPanel{
     
     private JComboBox type_employe;
+    private ArrayList<TextField_labelelised> text_fields;
     private ArrayList<JCheckBox> check_box;
     private JButton recherche_button;
     private JPanel recherche_panel;
@@ -44,8 +49,17 @@ public class SearchPanel extends JPanel{
     /**
      * Constructeur par défaut du searchpanel avec peu de personnalisation
      */
-    public SearchPanel()
+    public void pre_requetes()
     {
+        //cette requete sélectionne les champs d'un docteur, on laisse la possibilité de rajouter des conditions à la fin  
+        this.conex.ajouterRequete("SELECT ? FROM docteur AS d, employe AS e WHERE d.numero = e.numero AND 1");
+        
+        //cette requete sélectionne les champs d'un infirmier, on laisse la possibilité de rajouter des conditions à la fin
+        this.conex.ajouterRequete("SELECT * FROM employe AS e, infirmier AS i WHERE e.numero = i.numero AND ?");
+        
+        //cett requete sélectionne les champs des où le docteur est le chef du service, on laisse une condition à la fin  
+        this.conex.ajouterRequete("SELECT * FROM service AS s, docteur AS d, employe AS e WHERE s.directeur = d.numero AND d.numero = e.numero AND ? ");
+        
         
     }
     
@@ -56,31 +70,80 @@ public class SearchPanel extends JPanel{
     public SearchPanel(String type, Connexion con)
     {
      
-        this.table = type;
+        this.checkType(type);
         this.conex = con;
+        this.pre_requetes();
         this.check_box = new ArrayList<>();
+        this.text_fields = new ArrayList<>();
         this.recherche_panel = new JPanel();
         this.recherche_button = new JButton("Rechercher");
         this.recherche_button.addActionListener(new QueryListener());
+        this.recherche_panel.setLayout(new GridLayout(15, 1));
+        this.form();
+        this.setLayout(new BorderLayout());
+        this.add(recherche_panel, BorderLayout.NORTH);
+        result = new JLabel();
+        this.scroll_pan = new JScrollPane(result);
+        this.add(scroll_pan, BorderLayout.CENTER);
+        
+        
+    }
+    
+    
+    private void checkType(String type)
+    {
+        if(type == "docteur")
+        {
+            this.table = "employe, docteur";
+        }
+        else if(type == "infirmier")
+        {
+            this.table = "employe, infirmier";
+        }
+        else if(type == "service")
+        {
+            this.table = "service, docteur, employe";
+        }
+        else
+        {
+            this.table = type;
+        }
+    }
+
+    private void form() {
+        
+        
+        //création des text fields
         try {
-            ArrayList<String> l = con.remplirChampsTable(table);
+            ArrayList<String> l = conex.remplirChampsTable(table);
+            System.out.println(l);
+            for(int i = 0; i < l.size(); i++)
+            {
+              text_fields.add(new TextField_labelelised(l.get(i), 15));
+              this.recherche_panel.add(this.text_fields.get(i).getLabel());
+              this.recherche_panel.add(text_fields.get(i));
+            }
+            
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //création des checkboxes
+        try {
+            ArrayList<String> l = conex.remplirChampsTable(table);
             for(int i = 0; i < l.size(); i++)
             {
               check_box.add(new JCheckBox(l.get(i)));
               this.recherche_panel.add(check_box.get(i));
             }
-            
-            this.recherche_panel.add(recherche_button);
-            this.setLayout(new BorderLayout());
-            this.add(recherche_panel, BorderLayout.NORTH);
-            result = new JLabel();
-            this.scroll_pan = new JScrollPane(result);
-            this.scroll_pan.setBackground(Color.red);
-            this.add(scroll_pan, BorderLayout.CENTER);
+           
         } 
         catch (SQLException ex) {
             Logger.getLogger(SearchPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        this.recherche_panel.add(recherche_button);
         
     }
     
@@ -98,13 +161,22 @@ public class SearchPanel extends JPanel{
             {
                 if(check_box.get(i).isSelected())
                 {
-                  field_query.add(check_box.get(i).getActionCommand());   
+                    field_query.add(check_box.get(i).getActionCommand());   
+                }
+            }
+            ArrayList<PairString> where_query = new ArrayList<>();
+            for(int i = 0; i < text_fields.size(); i++)
+            {
+                if(!text_fields.get(i).getText().isEmpty())
+                {
+                    
+                    where_query.add(new PairString(text_fields.get(i).getLabelText(), text_fields.get(i).getText(), "s"));
                 }
             }
             
-            QueryCtrl qc = new QueryCtrl(conex,table, field_query);
-           result.setText(qc.result()); 
-           System.out.println(qc.result());
+            QueryCtrl qc = new QueryCtrl(conex,table, field_query, where_query);
+            result.setText(qc.result(field_query));
+          
         }
         
     }
