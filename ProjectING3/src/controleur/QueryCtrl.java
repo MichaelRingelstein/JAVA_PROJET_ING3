@@ -88,27 +88,24 @@ public class QueryCtrl {
             for(int i = 0; i < where.size(); i++)
             {
                 String s = where.get(i).getR();
-                if(where.get(i).getType() == "s")
-                {
-                     s = "'"+ where.get(i).getR()+"'";
-                    s = s.trim();
-                }
+                 System.out.print(s);
                 if(1 < where.size())
                 {
+                    System.out.print(s);
                     if(i+1 == where.size())
                     {
                         //System.out.println(where_condition += where.get(i).getL());
-                        where_condition += where.get(i).getL() + " = " + s + "; ";
+                        where_condition += where.get(i).getL() + " = '" + s + "'; ";
                     }
                     else
                     {
-                        where_condition += where.get(i).getL() + " = " + s + " AND "; // on sépare les tables par une virgule s'il y a plusieurs tables
+                        where_condition += where.get(i).getL() + " = '" + s + "' AND "; // on sépare les tables par une virgule s'il y a plusieurs tables
                         System.out.println(where_condition);
                     }
                 }    
                 else
                 {
-                    where_condition += " " + where.get(i).getL() + " = " + s + ";" ; //on ne met pas de virgule pour une table
+                    where_condition += where.get(i).getL() + " = '" + s + "';" ; //on ne met pas de virgule pour une table
                 }
             }
         }

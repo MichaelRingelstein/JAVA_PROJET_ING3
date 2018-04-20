@@ -116,6 +116,7 @@ public class SearchPanel extends JPanel{
         //création des text fields
         try {
             ArrayList<String> l = conex.remplirChampsTable(table);
+            System.out.println(l);
             for(int i = 0; i < l.size(); i++)
             {
               text_fields.add(new TextField_labelelised(l.get(i), 15));
