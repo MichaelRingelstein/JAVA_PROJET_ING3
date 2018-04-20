@@ -68,12 +68,6 @@ public class Homepage extends JFrame {
         
     }
     
-    
-    private void closeHomePage()
-    {
-        this.setVisible(false);
-    }
-    
     class Login implements ActionListener{
 
         @Override
@@ -87,8 +81,6 @@ public class Homepage extends JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(Homepage.class.getName()).log(Level.SEVERE, null, ex);
             }
-            closeHomePage();
-            
             
         }
     }

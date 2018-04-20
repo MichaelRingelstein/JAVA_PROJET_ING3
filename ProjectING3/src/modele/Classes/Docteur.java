@@ -11,26 +11,11 @@ package modele.Classes;
  */
 public class Docteur extends Employe{
     
-    private String specialite;
+    protected String specialite;
     
     public Docteur(int id, String nom, String prenom, int phone, String adresse, String specialite) {
         super(id, nom, prenom, phone, adresse);
         this.specialite = specialite;
-    }
-    
-    /**
-     *
-     */
-    public Docteur()
-    {
-        super();
-        this.specialite = null;
-        
-    }
-    
-    public String getSpecialite()
-    {
-        return this.specialite;
     }
     
 }
