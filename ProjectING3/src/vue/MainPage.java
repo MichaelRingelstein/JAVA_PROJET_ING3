@@ -25,9 +25,9 @@ public class MainPage extends JFrame {
        
         
        public Connexion conn;
-       private Reporting report;
        private JTabbedPane menu;
        private JTabbedPane onglet_search;
+       private JPanel onglet_reporting;
 
    
 
@@ -54,15 +54,17 @@ public class MainPage extends JFrame {
         
         //instanciation de l'onglet search
         this.onglet_search = new JTabbedPane(JTabbedPane.LEFT);
+        this.onglet_reporting = new JPanel();
         for(int i = 0; i < tab_onglet.length; i++)
         {
             this.onglet_search.add(tab_onglet[i],new SearchPanel(tab_onglet[i], this.conn));
         }
-        
+        this.onglet_reporting.add(new Reporting(conn));
         
         //instanciation du menu à plusieurs onglets 
         menu = new JTabbedPane(JTabbedPane.LEFT);
         menu.add("Recherche",this.onglet_search);
+        menu.add("Reporting",this.onglet_reporting);
         //menu.add("Reporting", report);
         this.setContentPane(menu);
            
