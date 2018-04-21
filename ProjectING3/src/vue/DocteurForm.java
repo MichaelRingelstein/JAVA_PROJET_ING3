@@ -30,24 +30,112 @@ public class DocteurForm extends EmployeForm{
     DocteurDAO doc_dao;
     Docteur doc;
     
-    public DocteurForm(boolean update, Connexion con) {
+    public DocteurForm(int i, Connexion con) {
         super();
         //on implemente le gestionnaire de docteur
         doc_dao = new DocteurDAO(con);
         //si on demande le formulaire de mise à jour
-        if(update == true)
+        if(i == 1)
+        {
+            this.formAdd();
+        }
+        //sinon on utilise le formulaire de recherche
+        else if(i == 2)
+        {
+            this.formSearch();
+        }
+        else if(i == 3)
         {
             this.formUpdate();
         }
-        //sinon on utilise le formulaire de recherche
+        else if(i== 4)
+        {
+            this.formDelete();
+        }
         else
         {
-            this.formSearch();
+            this.formAdd();
         }
     }
     
     
+    
     private void formUpdate() {
+        
+        JPanel p =  new JPanel();
+        JLabel label_numero = new JLabel("numero_docteur");
+        this.numero_f = new JTextField(10);
+        JLabel label_nom = new JLabel("nom_docteur");
+        this.nom_f = new JTextField(10);
+        JLabel label_prenom = new JLabel("prenom_docteur");
+        this.prenom_f = new JTextField(10);
+        JLabel label_specialite = new JLabel("specialite_docteur");
+        String[] tab = {"Traumatologue","Pneumologue","Cardiologue","Orthopediste", "Radiologue","Anesthesiste"};
+        this.specialite_f = new JComboBox(tab);
+        JLabel label_adresse = new JLabel("adresse_docteur");
+        this.adresse_f = new JTextField(15);
+        JLabel label_tel = new JLabel("telephone_docteur");
+        this.tel_f = new JTextField(10);
+        JButton valider = new JButton("Valider");
+        valider.addActionListener(new UpdateListener());
+        p.setLayout(new GridLayout(7,1));
+        p.add(label_numero);
+        p.add(numero_f);
+        p.add(label_nom);
+        p.add(nom_f);
+        p.add(label_prenom);
+        p.add(prenom_f);
+        p.add(label_specialite);
+        p.add(specialite_f);
+        p.add(label_adresse);
+        p.add(adresse_f);
+        p.add(label_tel);
+        p.add(tel_f);
+        p.add(valider);
+        this.add(p);
+    }
+
+    
+    
+    private void formDelete() {
+        
+        JPanel p =  new JPanel();
+        JLabel label_numero = new JLabel("numero_docteur");
+        this.numero_f = new JTextField(10);
+        JLabel label_nom = new JLabel("nom_docteur");
+        this.nom_f = new JTextField(10);
+        JLabel label_prenom = new JLabel("prenom_docteur");
+        this.prenom_f = new JTextField(10);
+        JLabel label_specialite = new JLabel("specialite_docteur");
+        String[] tab = {"Traumatologue","Pneumologue","Cardiologue","Orthopediste", "Radiologue","Anesthesiste"};
+        this.specialite_f = new JComboBox(tab);
+        JLabel label_adresse = new JLabel("adresse_docteur");
+        this.adresse_f = new JTextField(15);
+        JLabel label_tel = new JLabel("telephone_docteur");
+        this.tel_f = new JTextField(10);
+        JButton valider = new JButton("Valider");
+        valider.addActionListener(new UpdateListener());
+        p.setLayout(new GridLayout(7,1));
+        p.add(label_numero);
+        p.add(numero_f);
+        p.add(label_nom);
+        p.add(nom_f);
+        p.add(label_prenom);
+        p.add(prenom_f);
+        p.add(label_specialite);
+        p.add(specialite_f);
+        p.add(label_adresse);
+        p.add(adresse_f);
+        p.add(label_tel);
+        p.add(tel_f);
+        p.add(valider);
+        this.add(p);
+    }
+    
+    
+    
+    
+    private void formAdd() {
         
         JPanel p =  new JPanel();
         JLabel label_numero = new JLabel("numero_docteur");
@@ -117,8 +205,9 @@ public class DocteurForm extends EmployeForm{
         scpan.add(p, BorderLayout.EAST);
         
         
+        
         scpan.add(valider);
-        this.add(p);
+        this.add(scpan);
     }
     
     

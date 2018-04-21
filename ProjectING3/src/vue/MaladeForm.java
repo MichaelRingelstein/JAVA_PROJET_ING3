@@ -48,7 +48,7 @@ public class MaladeForm extends JPanel{
     }
     
     
-    public MaladeForm(boolean update, Connexion con)
+    public MaladeForm(int i, Connexion con)
     {
         
         //on implemente le gestionnaire d'employe
@@ -56,14 +56,26 @@ public class MaladeForm extends JPanel{
         
         
         //si on demande le formulaire de mise à jour
-        if(update == true)
+         if(i == 1)
+        {
+            this.formAdd();
+        }
+        //sinon on utilise le formulaire de recherche
+        else if(i == 2)
+        {
+            this.formSearch();
+        }
+        else if(i == 3)
         {
             this.formUpdate();
         }
-        //sinon on utilise le formulaire de recherche
+        else if(i== 4)
+        {
+            this.formDelete();
+        }
         else
         {
-            this.formSearch();
+            this.formAdd();
         }
         
     }
@@ -101,6 +113,78 @@ public class MaladeForm extends JPanel{
         p.add(valider);
         this.add(p);
     }
+    
+    
+    
+    private void formDelete() {
+        
+        JPanel p =  new JPanel();
+        JLabel label_numero = new JLabel("numero_patient");
+        this.numero_f = new JTextField(10);
+        JLabel label_nom = new JLabel("nom_patient");
+        this.nom_f = new JTextField(10);
+        JLabel label_prenom = new JLabel("prenom_patient");
+        this.prenom_f = new JTextField(10);
+        JLabel label_adresse = new JLabel("adresse_patient");
+        this.adresse_f = new JTextField(15);
+        JLabel label_tel = new JLabel("telephone_patient");
+        this.tel_f = new JTextField(10);
+        JLabel label_mutuelle = new JLabel("mutuelle_patient");
+        this.mutuelle_f = new JTextField(10);
+        JButton valider = new JButton("Valider");
+        valider.addActionListener(new UpdateListener());
+        p.setLayout(new GridLayout(9,1));
+        p.add(label_numero);
+        p.add(numero_f);
+        p.add(label_nom);
+        p.add(nom_f);
+        p.add(label_prenom);
+        p.add(prenom_f);
+        p.add(label_adresse);
+        p.add(adresse_f);
+        p.add(label_tel);
+        p.add(tel_f);
+        p.add(label_mutuelle);
+        p.add(mutuelle_f);
+        p.add(valider);
+        this.add(p);
+    }
+    
+    private void formAdd() {
+        
+        JPanel p =  new JPanel();
+        JLabel label_numero = new JLabel("numero_patient");
+        this.numero_f = new JTextField(10);
+        JLabel label_nom = new JLabel("nom_patient");
+        this.nom_f = new JTextField(10);
+        JLabel label_prenom = new JLabel("prenom_patient");
+        this.prenom_f = new JTextField(10);
+        JLabel label_adresse = new JLabel("adresse_patient");
+        this.adresse_f = new JTextField(15);
+        JLabel label_tel = new JLabel("telephone_patient");
+        this.tel_f = new JTextField(10);
+        JLabel label_mutuelle = new JLabel("mutuelle_patient");
+        this.mutuelle_f = new JTextField(10);
+        JButton valider = new JButton("Valider");
+        valider.addActionListener(new UpdateListener());
+        p.setLayout(new GridLayout(9,1));
+        p.add(label_numero);
+        p.add(numero_f);
+        p.add(label_nom);
+        p.add(nom_f);
+        p.add(label_prenom);
+        p.add(prenom_f);
+        p.add(label_adresse);
+        p.add(adresse_f);
+        p.add(label_tel);
+        p.add(tel_f);
+        p.add(label_mutuelle);
+        p.add(mutuelle_f);
+        p.add(valider);
+        this.add(p);
+    }
+    
+    
 
     private void formSearch() {
         JPanel p =  new JPanel();
