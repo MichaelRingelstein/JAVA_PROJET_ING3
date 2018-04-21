@@ -117,7 +117,7 @@ public class SearchPanel extends JPanel{
         try {
             ArrayList<String> l = conex.remplirChampsTable(table);
             System.out.println(l);
-            for(int i = 0; i < l.size(); i++)
+            for(int i = 0; i < l.size()-1; i++)
             {
               text_fields.add(new TextField_labelelised(l.get(i), 15));
               this.recherche_panel.add(this.text_fields.get(i).getLabel());
