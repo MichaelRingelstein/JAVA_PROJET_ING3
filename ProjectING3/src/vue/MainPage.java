@@ -65,9 +65,9 @@ public class MainPage extends JFrame {
           
         this.onglet_update.add("Ajouter",new AddPanel(this.conn));
         this.onglet_update.add("Modifier",new UpdatePanel(this.conn));
-        //this.onglet_update.add("Supprimer",new DeletePanel(this.conn));
+        this.onglet_update.add("Supprimer",new DeletePanel(this.conn));
         
-        //this.update_panel = new UpdatePanel(conn);
+       
         
         //instanciation du menu à plusieurs onglets 
         menu = new JTabbedPane(JTabbedPane.LEFT);

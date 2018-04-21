@@ -44,22 +44,32 @@ public class EmployeForm extends JPanel{
     }
     
     
-    public EmployeForm(boolean update, Connexion con)
+    public EmployeForm(int i, Connexion con)
     {
         
         //on implemente le gestionnaire d'employe
         em_dao = new EmployeDAO(con);
         
-        
-        //si on demande le formulaire de mise à jour
-        if(update == true)
+         if(i == 1)
+        {
+            this.formAdd();
+        }
+        //sinon on utilise le formulaire de recherche
+        else if(i == 2)
+        {
+            this.formSearch();
+        }
+        else if(i == 3)
         {
             this.formUpdate();
         }
-        //sinon on utilise le formulaire de recherche
+        else if(i== 4)
+        {
+            this.formDelete();
+        }
         else
         {
-            this.formSearch();
+            this.formAdd();
         }
         
     }
@@ -78,7 +88,71 @@ public class EmployeForm extends JPanel{
         JLabel label_tel = new JLabel("telephone_employe");
         this.tel_f = new JTextField(10);
         JButton valider = new JButton("Valider");
-        valider.addActionListener(new UpdateListener());
+        valider.addActionListener(new AddListener());
+        p.setLayout(new GridLayout(6,1));
+        p.add(label_numero);
+        p.add(numero_f);
+        p.add(label_nom);
+        p.add(nom_f);
+        p.add(label_prenom);
+        p.add(prenom_f);
+        p.add(label_adresse);
+        p.add(adresse_f);
+        p.add(label_tel);
+        p.add(tel_f);
+        p.add(valider);
+        this.add(p);
+    }
+    
+    
+    
+    
+    private void formDelete() {
+        
+        JPanel p =  new JPanel();
+        JLabel label_numero = new JLabel("numero_employe");
+        this.numero_f = new JTextField(10);
+        JLabel label_nom = new JLabel("nom_employe");
+        this.nom_f = new JTextField(10);
+        JLabel label_prenom = new JLabel("prenom_employe");
+        this.prenom_f = new JTextField(10);
+        JLabel label_adresse = new JLabel("adresse_employe");
+        this.adresse_f = new JTextField(15);
+        JLabel label_tel = new JLabel("telephone_employe");
+        this.tel_f = new JTextField(10);
+        JButton valider = new JButton("Valider");
+        valider.addActionListener(new AddListener());
+        p.setLayout(new GridLayout(6,1));
+        p.add(label_numero);
+        p.add(numero_f);
+        p.add(label_nom);
+        p.add(nom_f);
+        p.add(label_prenom);
+        p.add(prenom_f);
+        p.add(label_adresse);
+        p.add(adresse_f);
+        p.add(label_tel);
+        p.add(tel_f);
+        p.add(valider);
+        this.add(p);
+    }
+    
+    
+    private void formAdd() {
+        
+        JPanel p =  new JPanel();
+        JLabel label_numero = new JLabel("numero_employe");
+        this.numero_f = new JTextField(10);
+        JLabel label_nom = new JLabel("nom_employe");
+        this.nom_f = new JTextField(10);
+        JLabel label_prenom = new JLabel("prenom_employe");
+        this.prenom_f = new JTextField(10);
+        JLabel label_adresse = new JLabel("adresse_employe");
+        this.adresse_f = new JTextField(15);
+        JLabel label_tel = new JLabel("telephone_employe");
+        this.tel_f = new JTextField(10);
+        JButton valider = new JButton("Valider");
+        valider.addActionListener(new AddListener());
         p.setLayout(new GridLayout(6,1));
         p.add(label_numero);
         p.add(numero_f);
@@ -107,7 +181,7 @@ public class EmployeForm extends JPanel{
         JLabel label_tel = new JLabel("telephone_employe");
         this.tel_f = new JTextField(10);
         JButton valider = new JButton("Valider");
-        valider.addActionListener(new UpdateListener());
+        valider.addActionListener(new AddListener());
         p.setLayout(new GridLayout(6,1));
         p.add(label_numero);
         p.add(numero_f);
@@ -123,7 +197,7 @@ public class EmployeForm extends JPanel{
         this.add(p);
     }
 
-    class UpdateListener implements ActionListener{
+    class AddListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {

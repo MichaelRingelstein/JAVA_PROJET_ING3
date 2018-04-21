@@ -34,7 +34,7 @@ public class ChambreForm extends JPanel{
     JTextField n_lit_f;
     
     
-    public ChambreForm(boolean update, Connexion con)
+    public ChambreForm(int i, Connexion con)
     {
        Dimension dim = new Dimension(500, 600);
        this.setPreferredSize(dim);
@@ -44,20 +44,89 @@ public class ChambreForm extends JPanel{
         
         
         //si on demande le formulaire de mise à jour
-        if(update == true)
+         if(i == 1)
         {
-            this.formUpdate();
+            this.formAdd();
         }
         //sinon on utilise le formulaire de recherche
-        else
+        else if(i == 2)
         {
             this.formSearch();
         }
+        else if(i == 3)
+        {
+            this.formUpdate();
+        }
+        else if(i== 4)
+        {
+            this.formDelete();
+        }
+        else
+        {
+            this.formAdd();
+        }
+        
     }
     
     
     
     private void formUpdate() {
+        
+        JPanel p =  new JPanel();
+        JLabel label_code_service = new JLabel("code_service_chambre");
+        this.code_service_f = new JTextField(3);
+        JLabel label_numero = new JLabel("numero_chambre");
+        this.n_chambre_f = new JTextField(5);
+        JLabel label_surveillant = new JLabel("numero_surveillant");
+        this.surveillant_f = new JTextField(5);
+        JLabel label_n_lit = new JLabel("nombre de lits");
+        this.n_lit_f = new JTextField(5);
+        JButton valider = new JButton("Valider");
+        valider.addActionListener(new UpdateListener());
+        p.setLayout(new GridLayout(6,1));
+        p.add(label_code_service);
+        p.add(code_service_f);
+        p.add(label_numero);
+        p.add(n_chambre_f);
+        p.add(label_surveillant);
+        p.add(surveillant_f);
+        p.add(label_n_lit);
+        p.add(n_lit_f);
+        p.add(valider);
+        this.add(p);
+    }
+    
+    
+    
+    
+    private void formDelete() {
+        
+        JPanel p =  new JPanel();
+        JLabel label_code_service = new JLabel("code_service_chambre");
+        this.code_service_f = new JTextField(3);
+        JLabel label_numero = new JLabel("numero_chambre");
+        this.n_chambre_f = new JTextField(5);
+        JLabel label_surveillant = new JLabel("numero_surveillant");
+        this.surveillant_f = new JTextField(5);
+        JLabel label_n_lit = new JLabel("nombre de lits");
+        this.n_lit_f = new JTextField(5);
+        JButton valider = new JButton("Valider");
+        valider.addActionListener(new UpdateListener());
+        p.setLayout(new GridLayout(6,1));
+        p.add(label_code_service);
+        p.add(code_service_f);
+        p.add(label_numero);
+        p.add(n_chambre_f);
+        p.add(label_surveillant);
+        p.add(surveillant_f);
+        p.add(label_n_lit);
+        p.add(n_lit_f);
+        p.add(valider);
+        this.add(p);
+    }
+    
+    
+    private void formAdd() {
         
         JPanel p =  new JPanel();
         JLabel label_code_service = new JLabel("code_service_chambre");

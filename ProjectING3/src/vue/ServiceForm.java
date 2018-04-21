@@ -34,7 +34,7 @@ public class ServiceForm extends JPanel{
     JTextField directeurId_f;
     
     
-    public ServiceForm(boolean update, Connexion con)
+    public ServiceForm(int i, Connexion con)
     {
        Dimension dim = new Dimension(500, 600);
        this.setPreferredSize(dim);
@@ -44,20 +44,87 @@ public class ServiceForm extends JPanel{
         
         
         //si on demande le formulaire de mise à jour
-        if(update == true)
+         if(i == 1)
+        {
+            this.formAdd();
+        }
+        //sinon on utilise le formulaire de recherche
+        else if(i == 2)
+        {
+            this.formSearch();
+        }
+        else if(i == 3)
         {
             this.formUpdate();
         }
-        //sinon on utilise le formulaire de recherche
+        else if(i== 4)
+        {
+            this.formDelete();
+        }
         else
         {
-            this.formSearch();
+            this.formAdd();
         }
     }
     
     
     
     private void formUpdate() {
+        
+        JPanel p =  new JPanel();
+        JLabel label_code_service = new JLabel("code_service");
+        this.code_f = new JTextField(3);
+        JLabel label_nom = new JLabel("nom_service");
+        this.nom_f = new JTextField(15);
+        JLabel label_batiment = new JLabel("batiment_service");
+        this.batiment_f = new JTextField(5);
+        JLabel label_directeur = new JLabel("directeur _service");
+        this.directeurId_f = new JTextField(5);
+        JButton valider = new JButton("Valider");
+        valider.addActionListener(new UpdateListener());
+        p.setLayout(new GridLayout(6,1));
+        p.add(label_code_service);
+        p.add(code_f);
+        p.add(label_nom);
+        p.add(nom_f);
+        p.add(label_batiment);
+        p.add(batiment_f);
+        p.add(label_directeur);
+        p.add(directeurId_f);
+        p.add(valider);
+        this.add(p);
+    }
+    
+    
+    
+     private void formDelete() {
+        
+        JPanel p =  new JPanel();
+        JLabel label_code_service = new JLabel("code_service");
+        this.code_f = new JTextField(3);
+        JLabel label_nom = new JLabel("nom_service");
+        this.nom_f = new JTextField(15);
+        JLabel label_batiment = new JLabel("batiment_service");
+        this.batiment_f = new JTextField(5);
+        JLabel label_directeur = new JLabel("directeur _service");
+        this.directeurId_f = new JTextField(5);
+        JButton valider = new JButton("Valider");
+        valider.addActionListener(new UpdateListener());
+        p.setLayout(new GridLayout(6,1));
+        p.add(label_code_service);
+        p.add(code_f);
+        p.add(label_nom);
+        p.add(nom_f);
+        p.add(label_batiment);
+        p.add(batiment_f);
+        p.add(label_directeur);
+        p.add(directeurId_f);
+        p.add(valider);
+        this.add(p);
+    }
+    
+    
+     private void formAdd() {
         
         JPanel p =  new JPanel();
         JLabel label_code_service = new JLabel("code_service");

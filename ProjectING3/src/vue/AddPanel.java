@@ -62,35 +62,35 @@ public class AddPanel extends JPanel{
                 {
                     form_pan.removeAll();
                     title.setText("<html><h1>DOCTEUR</h1><br><html>");
-                    DocteurForm d_form = new DocteurForm(true, conex);
+                    DocteurForm d_form = new DocteurForm(1, conex);
                     form_pan.add(d_form);   
                 }
                 else if("Infirmier".equals(s))
                 {
                     form_pan.removeAll();
                     title.setText("<html><h1>INFIRMIER</h1><br><html>");
-                    InfirmierForm i_form = new InfirmierForm(true, conex);
+                    InfirmierForm i_form = new InfirmierForm(1, conex);
                     form_pan.add(i_form);
                 }
                 else if("Malade".equals(s))
                 {
                     form_pan.removeAll();
                     title.setText("<html><h1>PATIENT</h1><br><html>");
-                    MaladeForm m_form = new MaladeForm(true, conex);
+                    MaladeForm m_form = new MaladeForm(1, conex);
                     form_pan.add(m_form);
                 }
                 else if("Service".equals(s))
                 {
                     form_pan.removeAll();
                     title.setText("<html><h1>SERVICE</h1><br><html>");
-                    ServiceForm s_form = new ServiceForm(true, conex);
+                    ServiceForm s_form = new ServiceForm(1, conex);
                     form_pan.add(s_form);
                 }
                 else if("Chambre".equals(s))
                 {
                     form_pan.removeAll();
                     title.setText("<html><h1>CHAMBRE</h1><br><html>");
-                    ChambreForm c_form = new ChambreForm(true, conex);
+                    ChambreForm c_form = new ChambreForm(1, conex);
                     form_pan.add(c_form);
                 }
         }
