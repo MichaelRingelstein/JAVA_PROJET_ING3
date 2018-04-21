@@ -101,54 +101,6 @@ public class Connexion {
         }*/
     }
     
-    
-    public void searchAffiliesMutuelle(String mutuelle)
-    {
-        try {
-            Statement state = conn.createStatement();
-            ResultSet result = state.executeQuery("SELECT * FROM malade WHERE mutuelle='"+mutuelle+"'");
-            ResultSetMetaData resultMeta = result.getMetaData();
-            for(int i = 1; i <= resultMeta.getColumnCount(); i++)
-        System.out.print("\t" + resultMeta.getColumnName(i).toUpperCase() + "\t *");
-         
-      System.out.println("\n**********************************");
-         
-      while(result.next()){         
-        for(int i = 1; i <= resultMeta.getColumnCount(); i++)
-          System.out.print("\t" + result.getObject(i).toString() + "\t |");
-            
-        System.out.println("\n---------------------------------");
-
-      }
-        } catch (SQLException ex) {
-            Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void searchDocteurSpecialise(String specialisation)
-    {
-        try {
-            Statement state = conn.createStatement();
-            ResultSet result = state.executeQuery("SELECT * FROM employe AS e, docteur AS d WHERE e.numero = d.numero AND d.specialite='"+specialisation+"'");
-            ResultSetMetaData resultMeta = result.getMetaData();
-            for(int i = 1; i <= resultMeta.getColumnCount(); i++)
-        System.out.print("\t" + resultMeta.getColumnName(i).toUpperCase() + "\t *");
-         
-      System.out.println("\n**********************************");
-         
-      while(result.next()){         
-        for(int i = 1; i <= resultMeta.getColumnCount(); i++)
-          System.out.print("\t" + result.getObject(i).toString() + "\t |");
-            
-        System.out.println("\n---------------------------------");
-
-      }
-        } catch (SQLException ex) {
-            Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    
     /**
      * Méthode qui ajoute la table en parametre dans son ArrayList
      *
@@ -253,6 +205,19 @@ public class Connexion {
 
         // Retourner l'ArrayList
         return liste;
+    }
+    
+    public ResultSet resultServerRequest(String request) throws SQLException
+    {
+        ResultSet result = stmt.executeQuery(request);
+        return result;
+    }
+    
+    public ResultSetMetaData dataServerRequest(String request) throws SQLException
+    {
+        ResultSet result = stmt.executeQuery(request);
+        ResultSetMetaData data = result.getMetaData();
+        return data;
     }
 
     /**

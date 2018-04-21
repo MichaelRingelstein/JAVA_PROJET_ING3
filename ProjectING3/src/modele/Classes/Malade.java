@@ -10,7 +10,7 @@ package modele.Classes;
  * @author micha
  */
 public class Malade {
-    public int id;
+    protected int id;
     protected String nom;
     protected String prenom;
     protected String phone_number;

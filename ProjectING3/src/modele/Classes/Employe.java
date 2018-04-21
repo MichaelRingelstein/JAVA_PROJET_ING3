@@ -24,7 +24,6 @@ public class Employe {
         this.phone_number = phone;
         this.adresse = adresse;        
     }
-    
     public int getId(){return this.id;}
     public String getNom(){return this.nom;}
     public String getPrenom(){return this.prenom;}

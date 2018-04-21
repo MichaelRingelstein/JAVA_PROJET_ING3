@@ -34,11 +34,19 @@ public class Reporting extends JPanel{
     JPanel card1;
     JPanel card2;
     JPanel card3;
+    JPanel card4;
+    JPanel card5;
+    JPanel card6;
+    
     JLabel stat1;
     JLabel label1;
     JLabel stat2;
     JLabel label2;
     JLabel stat3;
+    JLabel stat4;
+    JLabel stat5;
+    JLabel stat6;
+    
     JButton button1;
     JButton button2;
     JList list1;
@@ -46,15 +54,20 @@ public class Reporting extends JPanel{
     JList list3a;
     JList list3b;
     //Liste des noms de nos conteneurs pour la pile de cartes
-    String[] listContent = {"CARD_1", "CARD_2", "CARD_3"};
+    String[] listContent = {"CARD_1", "CARD_2", "CARD_3", "CARD_4", "CARD_5", "CARD_6"};
     int indice = 0;
     Connexion conn;
     ArrayList<String> specialites;
     ArrayList<String> chambres;
-    ArrayList<String> maladeService;
     ArrayList<Integer> nbmalades;
     ArrayList<Integer> nbdocteurs;
-    String temp = "";
+    ArrayList<String> rotations;
+    ArrayList<Integer> nbrotations;
+    ArrayList<String> mutuelles;
+    ArrayList<Integer> nbmutuelles;
+    ArrayList<String> services;
+    ArrayList<Float> salairesMoyens;
+    ReportingModel model;
     
     
     public Reporting(Connexion conn) throws SQLException
@@ -64,16 +77,25 @@ public class Reporting extends JPanel{
         card1 = new JPanel();
         card2 = new JPanel();
         card3 = new JPanel();
+        card4 = new JPanel();
+        card5 = new JPanel();
+        card6 = new JPanel();
+        
         stat1 = new JLabel();
         label1 = new JLabel();
         stat2 = new JLabel();
         label2 = new JLabel();
         stat3 = new JLabel();
+        stat4 = new JLabel();
+        stat5 = new JLabel();
+        stat6 = new JLabel();
+        
         button1 = new JButton();
         button2 = new JButton();
         specialites = new ArrayList<String>();
         specialites.clear();
         this.setSize(600,600);
+        model = new ReportingModel(conn);
         
 
         stat1.setText("Répartition des spécialités des Docteurs");
@@ -88,15 +110,15 @@ public class Reporting extends JPanel{
         card1.add(stat1, BorderLayout.NORTH);
         //card1.add(scrollpane1, BorderLayout.CENTER);
  
-        this.specialites = this.listSPecialites();
-        this.nbdocteurs = this.nbDocteurs(this.specialites);
+        this.specialites = model.listSPecialites();
+        this.nbdocteurs = model.nbDocteurs(this.specialites);
         PieChart medecins = new PieChart("Medecins par spécialite",specialites, nbdocteurs);
         card1.add(medecins, BorderLayout.CENTER);
 
         
         // ce bout de code est censé mettre un arrayList sous forme de tableau (pb format d'affichage)
         stat2.setText("Liste des lits libres sous forme (Numero chambre) (Service) (Numero lit)");
-        this.chambres = this.getChambresLibres();
+        this.chambres = model.getChambresLibres(this.label2);
         list2 = new JList(this.chambres.toArray(new String[0]));
         JScrollPane scrollpane2 = new JScrollPane(list2);
         
@@ -108,18 +130,18 @@ public class Reporting extends JPanel{
         
         stat3.setText("Nombre de malades par service");
         //array d'array contenant les codes de services et le nb de malades par service
-        maladeService = this.getNomsService();
+        services = model.getNomsService();
         //System.out.println(maladeService);
-        nbmalades = getNbMaladesService(maladeService);
+        nbmalades = model.getNbMaladesService(services);
         //System.out.println(nbmalades);
         
-        PieChart maladesChart = new PieChart("Malades par service",maladeService, nbmalades);
+        PieChart maladesChart = new PieChart("Malades par service",services, nbmalades);
 
         /*list3a = new JList(this.maladeService.get(0).toArray(new String[0]));
         JScrollPane scrollpane3a = new JScrollPane(list3a);
         list3b = new JList(this.maladeService.get(1).toArray(new String[0]));
         JScrollPane scrollpane3b = new JScrollPane(list3b);*/
-        list3a = new JList(this.maladeService.toArray(new String[0]));
+        list3a = new JList(this.services.toArray(new String[0]));
         JScrollPane scrollpane3a = new JScrollPane(list3a);
         
         card3.setLayout(new BorderLayout());
@@ -128,6 +150,40 @@ public class Reporting extends JPanel{
         card3.add(maladesChart, BorderLayout.CENTER);
         //card3.add(scrollpane3b, BorderLayout.CENTER);
         
+        stat4.setText("Nombre d'infirmier par rotation");
+        
+        rotations = model.listRotations();
+        nbrotations = model.nbRotations(rotations);
+        PieChart rotationsChart = new PieChart("Nombre d'infirmiers par rotation",rotations, nbrotations);
+        
+        card4.setLayout(new BorderLayout());
+        card4.setBackground(Color.gray);
+        card4.add(stat4, BorderLayout.NORTH);
+        card4.add(rotationsChart, BorderLayout.CENTER);
+        
+        
+        stat5.setText("Nombre d'affiliés par mutuelle");
+        
+        mutuelles = model.listeMutuelles();
+        nbmutuelles = model.nbMutuelles(mutuelles);
+        PieChart mutuellesChart = new PieChart("Nombre d'affiliés par mutuelle",mutuelles, nbmutuelles);
+        
+        card5.setLayout(new BorderLayout());
+        card5.setBackground(Color.gray);
+        card5.add(stat5, BorderLayout.NORTH);
+        card5.add(mutuellesChart, BorderLayout.CENTER);
+        
+        
+        stat6.setText("Salaires moyens par service");
+        
+        System.out.println(services);
+        salairesMoyens = model.salaireParService(services);
+        BarChart salairesChart = new BarChart("Salaire moyen par service", services, salairesMoyens, "salaires");
+        
+        card6.setLayout(new BorderLayout());
+        card6.setBackground(Color.gray);
+        card6.add(stat6, BorderLayout.NORTH);
+        card6.add(salairesChart, BorderLayout.CENTER);
         
         this.setLayout(new BorderLayout());
         content.setLayout(c);
@@ -158,116 +214,12 @@ public class Reporting extends JPanel{
         content.add(card1, listContent[0]);
         content.add(card2, listContent[1]);
         content.add(card3, listContent[2]);
+        content.add(card4, listContent[3]);
+        content.add(card5, listContent[4]);
+        content.add(card6, listContent[5]);
         
         this.add(content, BorderLayout.CENTER);
         this.add(boutonPane, BorderLayout.NORTH);
     }
     
-    
-    //requete retournant un tableau avec le nom de chaque service
-    public ArrayList<String> getNomsService() throws SQLException
-    {
-        //requete pr connaitre le code de tous les services possibles
-        ArrayList<String> codes = this.conn.remplirChampsRequete("SELECT DISTINCT code_service FROM hospitalisation");
-        ArrayList<String> test = new ArrayList<String>();
-        for (int i = 0; i < codes.size(); i++) {
-
-            test.add(codes.get(i).toString());
-        }
-        
-        return test;
-    }
-    
-    //requete retournant un tableau avec le nb de malades par service dans l'ordre du tableau des noms de services
-    public  ArrayList<Integer> getNbMaladesService(ArrayList<String> test) throws SQLException
-    {
-
-        int g;
-        ArrayList<Integer> arl = new ArrayList<Integer>();
-        for (int i = 0; i < test.size(); i++) {
-            temp = (this.conn.remplirChampsRequete("SELECT COUNT(lit) FROM hospitalisation WHERE code_service='"+test.get(i)+"'")).toString();
-            //System.out.println(temp.getClass().getName());
-            g = myParseInt(temp);
-            arl.add(g);
-        }
-        return arl;
-    }
-    
-    // permet de passer un String de la forme "[10]" en int 
-    public  Integer myParseInt(String temp)
-    {
-        DecimalFormat decimalFormat = new DecimalFormat("#");
-        String temp2="";
-        int a = 0;
-        for (int j = 0; j < temp.length(); j++) {
-                if(temp.charAt(j)!='[' && temp.charAt(j)!=']')
-                {
-                    temp2 += temp.charAt(j);
-                }
-                
-            }
-        try {
-            a = decimalFormat.parse(temp2).intValue();
-        } catch (ParseException ex) {
-            Logger.getLogger(Reporting.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return (a);
-        
-    }
-   
-    // requete qui permet d'obtenir la liste des chambres et lits non occupés dans l'hopital (marche bien)
-    public ArrayList<String> getChambresLibres() throws SQLException
-    {
-        ArrayList<String> a = this.conn.remplirChampsRequete(
-             "SELECT DISTINCT h.no_chambre, h.code_service, h.lit \n" +
-"            FROM chambre AS c, hospitalisation AS h \n" +
-"            WHERE c.no_chambre != h.no_chambre \n" +
-"            AND c.code_service != h.code_service");
-        //System.out.println(a);
-        String temp = "";
-        for(int i=0; i<a.size(); i++)
-        {
-            temp += a.get(i) + "\n";
-        }
-        this.label2.setText(temp);
-        return a;
-    }
-    
-     // requete à la base qui recoit le nb de docteur à la spécialité demandée
-    public String getnbSpecialite(String specialite) throws SQLException
-    {
-        specialite = specialite.trim();
-        ArrayList<String> a = this.conn.remplirChampsRequete("SELECT COUNT(specialite) FROM docteur WHERE specialite='"+specialite+"'");
-        System.out.println("SELECT COUNT(specialite) FROM docteur WHERE specialite='"+specialite+"'");
-        String b = a.toString();
-        return b;
-        
-    }
-    
-    //On demande le nb de docteur pr chaque spécialité
-    public ArrayList<String> listSPecialites() throws SQLException
-    {
-        //this.conn.searchDocteurSpecialise("cardiologue");
-        ArrayList<String> specialites = new ArrayList<String>();
-        
-        specialites = this.conn.remplirChampsRequete("SELECT DISTINCT specialite FROM docteur");
-        //System.out.println(specialites);
-        
-        //System.out.println(specialites);
-        
-        return specialites;
-    }
-    
-    public ArrayList<Integer> nbDocteurs(ArrayList<String> specialites) throws SQLException
-    {
-        ArrayList<Integer> nbDocteurs = new ArrayList<Integer>();
-        String a;
-        for (int i = 0; i < specialites.size(); i++) {
-            a = specialites.get(i);
-            nbDocteurs.add(this.myParseInt(this.getnbSpecialite(a)));
-            //System.out.println(specialites.get(i));
-        }
-        System.out.println(nbDocteurs);
-        return nbDocteurs;
-    }
 }

@@ -28,5 +28,4 @@ public class Chambre {
     public int getNChambre(){return this.n_chambre;}
     public int getSurveillant(){return this.surveillant;}
     public int getNLit(){ return this.n_lit;}
-    
 }
