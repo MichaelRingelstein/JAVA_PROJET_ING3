@@ -28,6 +28,7 @@ public class MainPage extends JFrame {
        private JTabbedPane menu;
        private JTabbedPane onglet_search;
        private JPanel onglet_reporting;
+       private JTabbedPane onglet_update;
 
    
 
@@ -48,23 +49,31 @@ public class MainPage extends JFrame {
         this.setVisible(true);
         this.connect(db_name, user_name, pass_word);
         
-        String tab_onglet[] = {"docteur", "infirmier", "malade", "service", "chambre"};
-        //this.report = new Reporting(this.conn);
-        
+        //onglets du panneau recherche 
+        String tab_onglet_search[] = {"docteur", "infirmier", "malade", "service", "chambre"};
+       
         
         //instanciation de l'onglet search
         this.onglet_search = new JTabbedPane(JTabbedPane.LEFT);
         this.onglet_reporting = new JPanel();
-        for(int i = 0; i < tab_onglet.length; i++)
+        this.onglet_update = new JTabbedPane(JTabbedPane.LEFT);
+        for(int i = 0; i < tab_onglet_search.length; i++)
         {
-            this.onglet_search.add(tab_onglet[i],new SearchPanel(tab_onglet[i], this.conn));
+            this.onglet_search.add(tab_onglet_search[i],new SearchPanel(tab_onglet_search[i], this.conn));
         }
         this.onglet_reporting.add(new Reporting(conn));
+          
+        this.onglet_update.add("Ajouter",new AddPanel(this.conn));
+        this.onglet_update.add("Modifier",new UpdatePanel(this.conn));
+        //this.onglet_update.add("Supprimer",new DeletePanel(this.conn));
+        
+        //this.update_panel = new UpdatePanel(conn);
         
         //instanciation du menu à plusieurs onglets 
         menu = new JTabbedPane(JTabbedPane.LEFT);
         menu.add("Recherche",this.onglet_search);
         menu.add("Reporting",this.onglet_reporting);
+        menu.add("Mise à Jour", this.onglet_update);
         //menu.add("Reporting", report);
         this.setContentPane(menu);
            

@@ -12,7 +12,7 @@ package modele.Classes;
 public class Docteur extends Employe{
     
     protected String specialite;
-
+    
     public Docteur(int id, String nom, String prenom, String phone, String adresse, String specialite) {
         super(id, nom, prenom, phone, adresse);
         this.specialite = specialite;

@@ -7,17 +7,26 @@ package modele.Classes;
 
 /**
  *
- * @author micha
+ * @author adrie
  */
 public class Service {
-    public String code;
-    public String nom;
-    public char batiment;
-    public int directeur;
-    public Service(String code, String nom, char batiment, int directeur)
+    
+    private String code;
+    private String nom;
+    private char batiment;
+    private int directeurId;
+    
+    public Service(String code, String nom, char batiment, int directeurId)
     {
-        
+        this.code = code;
+        this.nom = nom;
+        this.batiment = batiment;
+        this.directeurId = directeurId;
     }
     
-
+    public String getCode(){ return this.code;}
+    public String getNom() { return this.nom;}
+    public char getBatiment(){return this.batiment;}
+    public int getDirecteurId(){return this.directeurId;}
+    
 }

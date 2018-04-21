@@ -20,7 +20,7 @@ public class TextField_labelelised extends JTextField {
     {
         super(col);
         this.label = new JLabel(label);
-        this.add(this.label);
+        super.add(this.label);
     }
     
     
