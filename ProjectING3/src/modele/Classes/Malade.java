@@ -10,15 +10,15 @@ package modele.Classes;
  * @author micha
  */
 public class Malade {
-    public int id;
+    protected int numero;
     protected String nom;
     protected String prenom;
     protected int phone_number;
     protected String adresse;
     protected String mutuelle;
     
-     public Malade(int id, String nom, String prenom, int phone, String adresse, String mutuelle){
-        this.id = id;
+     public Malade(int numero, String nom, String prenom, int phone, String adresse, String mutuelle){
+        this.numero = numero;
         this.nom = nom;
         this.prenom = prenom;
         this.phone_number = phone;

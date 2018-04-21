@@ -3,21 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/modele/Classes/Service.java</file>
             <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/modele/Classes/Employe.java</file>
-<<<<<<< HEAD
-            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/modele/Classes/Docteur.java</file>
-            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/vue/Homepage.java</file>
+            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/controleur/QueryCtrl.java</file>
+            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/vue/SearchPanel.java</file>
             <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/vue/Reporting.java</file>
+            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/modele/BarChart.java</file>
             <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/controleur/Control.java</file>
+            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/modele/Classes/Chambre.java</file>
+            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/vue/TextField_labelelised.java</file>
+            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/modele/Classes/PairString.java</file>
             <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/modele/Connexion.java</file>
-=======
-            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/vue/Homepage.java</file>
-            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/controleur/Control.java</file>
-            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/vue/MainPage.java</file>
-            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/modele/Connexion.java</file>
-            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/modele/Classes/Docteur.java</file>
-            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/vue/Reporting.java</file>
->>>>>>> refs/remotes/origin/master
+            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/modele/Classes/Malade.java</file>
+            <file>file:/C:/Users/micha/Documents/ECE/ING3/java/JAVA_PROJET_ING3/ProjectING3/src/modele/Classes/Infirmier.java</file>
         </group>
     </open-files>
 </project-private>

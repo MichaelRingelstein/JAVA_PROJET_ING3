@@ -9,10 +9,15 @@ package modele.Classes;
  *
  * @author micha
  */
-public class Infirmier extends Employe {
-    
-    public Infirmier(int numero, String nom, String prenom, String phone, String adresse, String codeservice, String rotation, Float salaire) {
-        super(numero, nom, prenom, phone, adresse);
+public class Service {
+    public String code;
+    public String nom;
+    public char batiment;
+    public int directeur;
+    public Service(String code, String nom, char batiment, int directeur)
+    {
+        
     }
     
+
 }
