@@ -5,7 +5,9 @@
  */
 package controleur;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modele.Classes.Docteur;
@@ -83,6 +85,22 @@ public class DocteurDAO extends EmployeDAO{
         }
         return b;
         
+    }
+    
+    
+
+     public ArrayList<Docteur> getAllDoc() throws SQLException
+    {
+        String sql = "SELECT * FROM employe, docteur WHERE docteur.numero = employe.numero";
+        ResultSet result = conex.resultServerRequest(sql);
+        
+        ArrayList<Docteur> temp = new ArrayList<Docteur>();
+        while(result.next())
+        {
+            temp.add(new Docteur(result.getInt("numero"), result.getString("nom"), result.getString("prenom"), result.getString("tel"), result.getString("adresse"), result.getString("specialite")));
+        }
+        
+        return temp;
     }
     
 }

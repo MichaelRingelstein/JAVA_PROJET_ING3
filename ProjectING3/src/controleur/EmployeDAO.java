@@ -5,8 +5,11 @@
  */
 package controleur;
 
+import java.sql.Array;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modele.Classes.Employe;
@@ -75,6 +78,19 @@ public class EmployeDAO {
         
     }
     
+    public ArrayList<Employe> getAll() throws SQLException
+    {
+        String sql = "SELECT * FROM employe";
+        ResultSet result = conex.resultServerRequest(sql);
+        
+        ArrayList<Employe> temp = new ArrayList<Employe>();
+        while(result.next())
+        {
+            temp.add(new Employe(result.getInt("numero"), result.getString("nom"), result.getString("prenom"), result.getString("tel"), result.getString("adresse")));
+        }
+        
+        return temp;
+    }
     
    
 }

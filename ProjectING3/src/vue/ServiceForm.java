@@ -11,6 +11,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,12 +34,11 @@ public class ServiceForm extends JPanel{
     JTextField nom_f;
     JTextField batiment_f;
     JTextField directeurId_f;
+     JTextField[][] cells;
     
     
-    public ServiceForm(int i, Connexion con)
+    public ServiceForm(int i, Connexion con) throws SQLException
     {
-       Dimension dim = new Dimension(500, 600);
-       this.setPreferredSize(dim);
        
        //on implemente le gestionnaire d'employe
         s_dao = new ServiceDAO(con);
@@ -69,57 +70,63 @@ public class ServiceForm extends JPanel{
     
     
     
-    private void formUpdate() {
+    private void formUpdate() throws SQLException {
         
-        JPanel p =  new JPanel();
-        JLabel label_code_service = new JLabel("code_service");
-        this.code_f = new JTextField(3);
-        JLabel label_nom = new JLabel("nom_service");
-        this.nom_f = new JTextField(15);
-        JLabel label_batiment = new JLabel("batiment_service");
-        this.batiment_f = new JTextField(5);
-        JLabel label_directeur = new JLabel("directeur _service");
-        this.directeurId_f = new JTextField(5);
-        JButton valider = new JButton("Valider");
-        valider.addActionListener(new UpdateListener());
-        p.setLayout(new GridLayout(6,1));
-        p.add(label_code_service);
-        p.add(code_f);
-        p.add(label_nom);
-        p.add(nom_f);
-        p.add(label_batiment);
-        p.add(batiment_f);
-        p.add(label_directeur);
-        p.add(directeurId_f);
-        p.add(valider);
+        ArrayList<Service> tab_doc = s_dao.getAllService();
+         cells = new JTextField[tab_doc.size()][4];
+         JPanel p =  new JPanel();
+         //p.setSize(800, 900);
+         p.setLayout(new GridLayout(tab_doc.size(), 4));
+        for(int i = 0; i < tab_doc.size(); i++)
+        {
+            cells[i][0] = new JTextField(tab_doc.get(i).getCode());
+            cells[i][0].setEditable(false);
+            p.add(cells[i][0]);
+            cells[i][1] = new JTextField(tab_doc.get(i).getNom());
+             
+             p.add(cells[i][1]); 
+             cells[i][2] = new JTextField(String.valueOf(tab_doc.get(i).getBatiment()));
+              
+             p.add(cells[i][2]);
+             cells[i][3] = new JTextField(String.valueOf(tab_doc.get(i).getDirecteurId()));
+              
+             p.add(cells[i][3]);
+             
+             MyButton modifier = new MyButton("Modifier", i);
+             p.add(modifier);
+             modifier.addActionListener(new UpdateListener());
+        }
         this.add(p);
     }
     
     
     
-     private void formDelete() {
+     private void formDelete() throws SQLException {
         
-        JPanel p =  new JPanel();
-        JLabel label_code_service = new JLabel("code_service");
-        this.code_f = new JTextField(3);
-        JLabel label_nom = new JLabel("nom_service");
-        this.nom_f = new JTextField(15);
-        JLabel label_batiment = new JLabel("batiment_service");
-        this.batiment_f = new JTextField(5);
-        JLabel label_directeur = new JLabel("directeur _service");
-        this.directeurId_f = new JTextField(5);
-        JButton valider = new JButton("Valider");
-        valider.addActionListener(new UpdateListener());
-        p.setLayout(new GridLayout(6,1));
-        p.add(label_code_service);
-        p.add(code_f);
-        p.add(label_nom);
-        p.add(nom_f);
-        p.add(label_batiment);
-        p.add(batiment_f);
-        p.add(label_directeur);
-        p.add(directeurId_f);
-        p.add(valider);
+         ArrayList<Service> tab_doc = s_dao.getAllService();
+         cells = new JTextField[tab_doc.size()][4];
+         JPanel p =  new JPanel();
+         //p.setSize(800, 900);
+         p.setLayout(new GridLayout(tab_doc.size(), 4));
+        for(int i = 0; i < tab_doc.size(); i++)
+        {
+            cells[i][0] = new JTextField(tab_doc.get(i).getCode());
+            cells[i][0].setEditable(false);
+            p.add(cells[i][0]);
+            cells[i][1] = new JTextField(tab_doc.get(i).getNom());
+             
+             p.add(cells[i][1]); 
+             cells[i][2] = new JTextField(String.valueOf(tab_doc.get(i).getBatiment()));
+              
+             p.add(cells[i][2]);
+             cells[i][3] = new JTextField(String.valueOf(tab_doc.get(i).getDirecteurId()));
+              
+             p.add(cells[i][3]);
+             
+             MyButton modifier = new MyButton("Supprimer", i);
+             p.add(modifier);
+             modifier.addActionListener(new DeleteListener());
+        }
         this.add(p);
     }
     
@@ -136,7 +143,7 @@ public class ServiceForm extends JPanel{
         JLabel label_directeur = new JLabel("directeur _service");
         this.directeurId_f = new JTextField(5);
         JButton valider = new JButton("Valider");
-        valider.addActionListener(new UpdateListener());
+        valider.addActionListener(new AddListener());
         p.setLayout(new GridLayout(6,1));
         p.add(label_code_service);
         p.add(code_f);
@@ -175,7 +182,7 @@ public class ServiceForm extends JPanel{
         this.add(p);
     }
 
-    class UpdateListener implements ActionListener{
+    class AddListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -195,6 +202,64 @@ public class ServiceForm extends JPanel{
             else
             {
                 System.out.print("Erreur dans l'ajout de la Chambre ");
+            }
+            
+            
+        }
+        
+    }
+    
+    
+     class UpdateListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            
+            MyButton mb = (MyButton)e.getSource();
+            //on récupère les informations du formulaire
+            String code_service = cells[mb.getId()][0].getText();
+            String nom = cells[mb.getId()][1].getText();
+            char batiment = cells[mb.getId()][2].getText().charAt(0);
+            int directeurId = Integer.parseInt(cells[mb.getId()][3].getText());
+            
+            //à partir des informations, on créé un objet
+            s = new Service(code_service, nom, batiment, directeurId);
+            if(s_dao.update_service(s))
+            {
+                System.out.println("Service modifié avec succes");
+            }
+            else
+            {
+                System.out.print("Erreur dans la modification du service ");
+            }
+            
+            
+        }
+        
+    }
+     
+     
+     class DeleteListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            
+            MyButton mb = (MyButton)e.getSource();
+            //on récupère les informations du formulaire
+            String code_service = cells[mb.getId()][0].getText();
+            String nom = cells[mb.getId()][1].getText();
+            char batiment = cells[mb.getId()][2].getText().charAt(0);
+            int directeurId = Integer.parseInt(cells[mb.getId()][3].getText());
+            
+            //à partir des informations, on créé un objet
+            s = new Service(code_service, nom, batiment, directeurId);
+            if(s_dao.delete_service(s))
+            {
+                System.out.println("Service supprimé avec succes");
+            }
+            else
+            {
+                System.out.print("Erreur dans la suppression du service ");
             }
             
             

@@ -5,7 +5,9 @@
  */
 package controleur;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modele.Classes.Docteur;
@@ -51,7 +53,7 @@ public class InfirmierDAO extends EmployeDAO{
         
         //on met à jour le docteur dans la table docteur
         boolean b = false;
-        String sql = "UPDATE infirmier SET code_service = '" + i.getCodeService() + "' rotation = " + "'" + i.getRotation() + "' salaire = " + i.getSalaire() +  "' WHERE numero = " + i.getId()+ ";";
+        String sql = "UPDATE infirmier SET code_service = '" + i.getCodeService() + "', rotation = '"  + i.getRotation() + "', salaire = " + i.getSalaire() +  " WHERE numero = " + i.getId()+ ";";
         try
         {
             conex.executeUpdate(sql);
@@ -84,5 +86,22 @@ public class InfirmierDAO extends EmployeDAO{
         return b;
         
     }
+    
+    
+    
+    public ArrayList<Infirmier> getAllInf() throws SQLException
+    {
+        String sql = "SELECT * FROM employe, infirmier WHERE infirmier.numero = employe.numero";
+        ResultSet result = conex.resultServerRequest(sql);
+        
+        ArrayList<Infirmier> temp = new ArrayList<Infirmier>();
+        while(result.next())
+        {
+            temp.add(new Infirmier(result.getInt("numero"), result.getString("nom"), result.getString("prenom"), result.getString("tel"), result.getString("adresse"), result.getString("code_service"), result.getString("rotation"), result.getDouble("salaire")));
+        }
+        
+        return temp;
+    }
+    
     
 }

@@ -39,8 +39,7 @@ public class EmployeForm extends JPanel{
     
     public EmployeForm()
     {
-       Dimension dim = new Dimension(500, 600);
-       this.setPreferredSize(dim);
+       
     }
     
     
