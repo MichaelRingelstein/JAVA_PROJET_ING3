@@ -37,7 +37,7 @@ import modele.Connexion;
 public class SearchPanel extends JPanel{
     
     private JComboBox type_employe;
-    private ArrayList<TextField_labelelised> text_fields;
+    private ArrayList<JTextField> text_fields;
     private ArrayList<JCheckBox> check_box;
     private JButton recherche_button;
     private JPanel recherche_panel;
@@ -49,7 +49,7 @@ public class SearchPanel extends JPanel{
     /**
      * Constructeur par défaut du searchpanel avec peu de personnalisation
      */
-    public void pre_requetes()
+/*    public void pre_requetes()
     {
         //cette requete sélectionne les champs d'un docteur, on laisse la possibilité de rajouter des conditions à la fin  
         this.conex.ajouterRequete("SELECT ? FROM docteur AS d, employe AS e WHERE d.numero = e.numero AND 1");
@@ -61,7 +61,7 @@ public class SearchPanel extends JPanel{
         this.conex.ajouterRequete("SELECT * FROM service AS s, docteur AS d, employe AS e WHERE s.directeur = d.numero AND d.numero = e.numero AND ? ");
         
         
-    }
+    }*/
     
     /**
      * Constructeur personnalisé avec en parametres des type pour créer une combo box
@@ -72,7 +72,7 @@ public class SearchPanel extends JPanel{
      
         this.checkType(type);
         this.conex = con;
-        this.pre_requetes();
+        //this.pre_requetes();
         this.check_box = new ArrayList<>();
         this.text_fields = new ArrayList<>();
         this.recherche_panel = new JPanel();
@@ -119,8 +119,11 @@ public class SearchPanel extends JPanel{
             System.out.println(l);
             for(int i = 0; i < l.size()-1; i++)
             {
-              text_fields.add(new TextField_labelelised(l.get(i), 15));
-              this.recherche_panel.add(this.text_fields.get(i).getLabel());
+              JLabel lab = new JLabel(l.get(i));
+              
+              text_fields.add(new JTextField());
+              text_fields.get(i).setName(l.get(i));
+              this.recherche_panel.add(lab);
               this.recherche_panel.add(text_fields.get(i));
             }
             
@@ -170,7 +173,7 @@ public class SearchPanel extends JPanel{
                 if(!text_fields.get(i).getText().isEmpty())
                 {
                     
-                    where_query.add(new PairString(text_fields.get(i).getLabelText(), text_fields.get(i).getText(), "s"));
+                    where_query.add(new PairString(text_fields.get(i).getName(), text_fields.get(i).getText(), "s"));
                 }
             }
             
